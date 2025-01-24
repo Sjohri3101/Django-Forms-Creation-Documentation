@@ -1,4 +1,6 @@
+-----------------------------------------------------------------------------------------------------------
 Django Forms
+-----------------------------------------------------------------------------------------------------------
 Forms are used for taking input from the user in some manner and using that information for logical operations on databases. For example, Registering a user by taking input such as his name, email, password, etc.
 
 Django maps the fields defined in Django forms into HTML input fields. Django handles three distinct parts of the work involved in forms:
