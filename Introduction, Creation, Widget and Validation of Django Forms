@@ -93,14 +93,14 @@ forms.py
 # import form class from django
 from django import forms
  
-# import GeeksModel from models.py
-from .models import GeeksModel
+# import SampleModel from models.py
+from .models import SampleModel
  
 # create a ModelForm
-class GeeksForm(forms.ModelForm):
+class SampleForm(forms.ModelForm):
     # specify the name of model to use
     class Meta:
-        model = GeeksModel
+        model = SampleModel
         fields = "__all__"
 
 
@@ -116,7 +116,7 @@ forms.py
 from django import forms 
   
 // creating a django form 
-class GeeksForm(forms.Form): 
+class SampleForm(forms.Form): 
     title = forms.CharField() 
     description = forms.CharField() 
     views = forms.IntegerField() 
@@ -125,12 +125,12 @@ class GeeksForm(forms.Form):
 views.py
 ----------
 from django.shortcuts import render 
-from .forms import GeeksForm 
+from .forms import SampleForm 
   
 # creating a home view 
 def home_view(request): 
     context = {} 
-    form = GeeksForm(request.POST or None) 
+    form = SampleForm(request.POST or None) 
     context['form'] = form 
     return render(request, "home.html", context) 
 
@@ -149,7 +149,7 @@ forms.py
 ---------
 from django import forms 
   
-class GeeksForm(forms.Form): 
+class SampleForm(forms.Form): 
     title = forms.CharField(widget = forms.Textarea) 
     description = forms.CharField(widget = forms.CheckboxInput) 
     views = forms.IntegerField(widget = forms.TextInput) 
@@ -161,7 +161,7 @@ forms.py
 ---------
 from django import forms 
   
-class GeeksForm(forms.Form): 
+class SampleForm(forms.Form): 
     title = forms.CharField() 
     description = forms.CharField() 
     views = forms.IntegerField() 
