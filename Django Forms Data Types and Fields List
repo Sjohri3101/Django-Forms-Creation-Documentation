@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                      Django Forms Data Types and Fields List
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Name	                                        Class	                                                        HTML Input
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+BooleanField	                                class BooleanField(**kwargs)	                                CheckboxInput
+CharField	                                    class CharField(**kwargs)	                                    TextInput
+ChoiceField	                                  class ChoiceField(**kwargs)	                                  Select
+TypedChoiceField	                            class TypedChoiceField(**kwargs)	                            Select
+DateField	                                    class DateField(**kwargs)	                                    DateInput
+DateTimeField	                                class DateTimeField(**kwargs)	                                DateTimeInput
+DecimalField	                                class DecimalField(**kwargs)	                                NumberInput when Field.localize is False, else TextInput
+DurationField	                                class DurationField(**kwargs)	                                TextInput
+EmailField	                                  class EmailField(**kwargs	                                    EmailInput
+FileField	                                    class FileField(**kwargs)	                                    ClearableFileInput
+FilePathField	                                class FilePathField(**kwargs)	                                Select
+FloatField	                                  class FloatField(**kwargs)	                                  NumberInput when Field.localize is False, else TextInput
+ImageField	                                  class ImageField(**kwargs)	                                  ClearableFileInput
+IntegerField	                                class IntegerField(**kwargs)	                                NumberInput when Field.localize is False, else TextInput
+GenericIPAddressField	                        class GenericIPAddressField(**kwargs)	                        TextInput
+MultipleChoiceField	                          class MultipleChoiceField(**kwargs)	                          SelectMultiple
+TypedMultipleChoiceField	                    class TypedMultipleChoiceField(**kwargs)	                    SelectMultiple
+NullBooleanField	                            class NullBooleanField(**kwargs)	                            NullBooleanSelect
+RegexField	                                  class RegexField(**kwargs)	                                  TextInput
+SlugField	                                    class SlugField(**kwargs)	                                    TextInput
+TimeField	                                    class TimeField(**kwargs)	                                    TimeInput
+URLField	                                    class URLField(**kwargs)	                                    URLInput
+UUIDField	                                    class UUIDField(**kwargs)	                                    TextInput
