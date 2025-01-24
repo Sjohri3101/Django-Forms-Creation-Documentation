@@ -1,0 +1,208 @@
+---------------------------------------------------------------------------------------------------------------------------------
+Django Form | Data Types and Fields
+---------------------------------------------------------------------------------------------------------------------------------
+Django Form | Booleanfield
+---------------------------
+A checkbox field called a BooleanField in Django Forms stores either True or False. It is used to collect user-provided boolean inputs. CheckboxInput is the default widget for this input. It is converted to a True or False value in Python.
+
+Syntax
+
+field_name = forms.BooleanField(**options)
+
+---------------------------
+Django Form | Charfield
+---------------------------
+A string field for small to large-sized strings is called CharField in Django Forms. It is used to collect user-provided text input. This input’s default widget is TextInput. If max_length and min_length are supplied, it uses MaxLengthValidator and MinLengthValidator. If not, all inputs are acceptable.
+
+Syntax
+
+field_name = forms.CharField(**options)
+
+---------------------------
+Django Form | Choicefield
+---------------------------
+A string field called ChoiceField is used in Django Forms to select one option from a list of available options. It is used to implement fields similar to States, Countries, etc., for which information has already been specified and the user must make a selection. It is used to collect user-provided text input. Select is the default widget for this input.
+
+Syntax
+
+field_name = forms.ChoiceField(**options)
+
+---------------------------
+Django Form | Datefield
+---------------------------
+DateField in Django Forms is a date field, for taking input of dates from the user. The default widget for this input is DateInput.
+
+Syntax
+
+field_name = forms.DateField(**options)
+
+---------------------------
+Django Form | Datetimefield
+---------------------------
+DateTimeField in Django Forms is a date field, for taking input of date and time from the user. The default widget for this input is DateTimeInput.
+
+Syntax
+
+field_name = forms.DateTimeField(**options)
+
+---------------------------
+Django Form | Decimalfield
+---------------------------
+DecimalField in Django Forms is a decimal field, for input of decimal numbers. The default widget for this input is NumberInput.
+
+Syntax
+
+field_name = forms.DecimalField(**options)
+
+---------------------------
+Django Form | Durationfield
+---------------------------
+DurationField in Django Forms is used for input of particular durations for example from 12 am to 1 pm. The default widget for this input is TextInput. 
+
+Syntax
+
+field_name = forms.DurationField(**options)
+
+---------------------------
+Django Form | Emailfield
+---------------------------
+EmailField in Django Forms is a string field, for input of Emails. It is used for taking text inputs from the user. The default widget for this input is EmailInput.
+
+Syntax
+
+field_name = forms.EmailField(**options)
+
+---------------------------
+Django Form | Filefield
+---------------------------
+FileField in Django Forms is an input field for the upload of files. The default widget for this input is ClearableFileInput.
+
+Syntax
+
+field_name = forms.FileField(**options)
+
+---------------------------
+Django Form | Filepathfield
+---------------------------
+FilePathField in Django Forms is a string field, for the input of the path of a particular file from the server. It is used to select inputs from the user. One needs to specify which folders should be used in FilePathField and the field displays the inputs in the form of a select field. The default widget for this input is Select.
+
+Syntax
+
+field_name = forms.FilePathField(**options)
+
+---------------------------
+Django Form | Floatfield
+---------------------------
+FloatField in Django Forms is an integer field, for taking input of floating point numbers from the user. The default widget for this input is NumberInput.
+
+Syntax
+
+field_name = forms.FloatField(**options)
+
+---------------------------
+Django Form | Genericipaddressfield
+---------------------------
+GenericIPAddressField in Django Forms is a text field, for input of IP Addresses. It is a field containing either an IPv4 or an IPv6 address. The default widget for this input is TextInput.
+
+Syntax
+
+field_name = forms.GenericIPAddressField(**options)
+
+---------------------------
+Django Form | Imagefield
+---------------------------
+ImageField in Django Forms is an input field for the upload of image files. The default widget for this input is ClearableFileInput.
+
+Syntax
+
+field_name = forms.ImageField(**options)
+
+---------------------------
+Django Form | Integerfield
+---------------------------
+IntegerField in Django Forms is an integer field, for the input of Integer numbers. The default widget for this input is NumberInput.
+
+Syntax
+
+field_name = forms.IntegerField(**options)
+
+---------------------------
+Django Form | Multiplechoicefield
+---------------------------
+MultipleChoiceField in Django Forms is a Choice field, for input of multiple pairs of values from a field. The default widget for this input is SelectMultiple. 
+
+Syntax
+
+field_name = forms.MultipleChoiceField(**options)
+
+---------------------------
+Django Form | Nullbooleanfield
+---------------------------
+NullBooleanField in Django Forms is a select field that stores either True or False. It is used for taking boolean inputs from the user. The default widget for this input is NullBooleanSelect.
+
+Syntax
+
+field_name = forms.NullBooleanField(**options)
+
+---------------------------
+Django Form | Regexfield
+---------------------------
+RegexField in Django Forms is a string field, for small- to large-sized strings that one can match with a particular regular expression. It is used for taking selected text inputs from the user. The default widget for this input is TextInput. 
+
+Syntax
+
+field_name = forms.RegexField(**options)
+
+---------------------------
+Django Form | Slugfield
+---------------------------
+SlugField in Django Forms is a slug field, for input of slugs for particular URLs or similar. This field is intended for use in representing a model SlugField in forms. The default widget for this input is TextInput.
+
+Syntax
+
+field_name = forms.SlugField(**options)
+
+---------------------------
+Django Form | Timefield
+---------------------------
+TimeField in Django Forms is a time input field, for input of time for a particular instance or similar. The default widget for this input is TimeInput. 
+
+Syntax
+
+field_name = forms.TimeField(**options)
+
+---------------------------
+Django Form | Typedchoicefield
+---------------------------
+TypedChoiceField in Django Forms is a field just like ChoiceField, for selecting a particular choice out of a list of available choices. It is used to implement State, Countries etc. like fields for which information is already defined and the user has to choose one. It is used for taking text inputs from the user. The default widget for this input is Select.
+
+Syntax
+
+field_name = forms.TypedChoiceField(**options)
+
+---------------------------
+Django Form | Typedmultiplechoicefield
+---------------------------
+TypedMultipleChoiceField in Django Forms is a Choice field, for input of multiple pairs of values from a field and it includes a coerce function also to convert data into specific data types. The default widget for this input is SelectMultiple.
+
+Syntax
+
+field_name = forms.TypedMultipleChoiceField(**options)
+
+---------------------------
+Django Form | Urlfield
+---------------------------
+URLField in Django Forms is a URL field, for the input of URLs from a user. This field is intended for use in representing a model URLField in forms. The default widget for this input is URLInput. It uses URLValidator to validate that the given value is a valid URL.
+
+Syntax
+
+field_name = forms.URLField(**options)
+
+---------------------------
+Django Form | Uuidfield
+---------------------------
+UUIDField in Django Forms is a UUID field, for the input of UUIDs from a user. The default widget for this input is TextInput.
+
+Syntax
+
+field_name = forms.UUIDField(**options)
