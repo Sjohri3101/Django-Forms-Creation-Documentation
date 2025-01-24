@@ -1,0 +1,345 @@
+Django Forms
+Forms are used for taking input from the user in some manner and using that information for logical operations on databases. For example, Registering a user by taking input such as his name, email, password, etc.
+
+Django maps the fields defined in Django forms into HTML input fields. Django handles three distinct parts of the work involved in forms:
+
+1 - Preparing and restructuring data to make it ready for rendering.
+2 - Creating HTML forms for the data.
+3 - Receiving and processing submitted forms and data from the client.
+
+Syntax :  Django Fields work like Django Model Fields and have the syntax:
+          field_name = forms.FieldType(**options) 
+
+Example :
+from django import forms
+# creating a form
+class SampleForm(forms.Form):
+    title = forms.CharField()
+    description = forms.CharField() 
+
+-------------------------------------------------------------------------------------
+Creating Forms in Django
+-------------------------------------------------------------------------------------
+forms.py
+# import the standard Django Forms
+# from built-in library
+from django import forms 
+  
+# creating a form  
+class InputForm(forms.Form): 
+  
+    first_name = forms.CharField(max_length = 200) 
+    last_name = forms.CharField(max_length = 200) 
+    roll_number = forms.IntegerField( 
+                     help_text = "Enter 6 digit roll number"
+                     ) 
+    password = forms.CharField(widget = forms.PasswordInput()) 
+
+--------------------------------------------------------------------------------------
+To render this form into a view, move to views.py and create a home_view as below. 
+--------------------------------------------------------------------------------------
+A form comes with 3 in-built methods that can be used to render Django form fields. 
+
+{{ form.as_table }} will render them as table cells wrapped in <tr> tags
+{{ form.as_p }} will render them wrapped in <p> tags
+{{ form.as_ul }} will render them wrapped in <li> tags
+
+
+from django.shortcuts import render
+from .forms import InputForm
+# Create your views here.
+def home_view(request):
+    context ={}
+    context['form']= InputForm()
+    return render(request, "home.html", context)
+
+--------------------------------------------------------------------------------------
+home.html
+--------------------------------------------------------------------------------------
+<form action = "" method = "post">
+    {% csrf_token %}
+    {{form }}
+    <input type="submit" value=Submit">
+</form>
+
+
+--------------------------------------------------------------------------------------
+Create Django Form from Models
+--------------------------------------------------------------------------------------
+models.py
+---------
+# import the standard Django Model
+# from built-in library
+from django.db import models
+  
+# declare a new model with a name "SampleModel"
+class SampleModel(models.Model):
+        # fields of the model
+    title = models.CharField(max_length = 200)
+    description = models.TextField()
+    last_modified = models.DateTimeField(auto_now_add = True)
+    img = models.ImageField(upload_to = "images/")
+  
+        # renames the instances of the model
+        # with their title name
+    def __str__(self):
+        return self.title
+
+
+forms.py
+---------
+# import form class from django
+from django import forms
+ 
+# import GeeksModel from models.py
+from .models import GeeksModel
+ 
+# create a ModelForm
+class GeeksForm(forms.ModelForm):
+    # specify the name of model to use
+    class Meta:
+        model = GeeksModel
+        fields = "__all__"
+
+
+--------------------------------------------------------------------------------------
+Django form field custom widgets
+--------------------------------------------------------------------------------------
+Every field has a predefined widget, for example IntegerField has a default widget of NumberInput.
+
+Default Widget in Form Fields
+---------------------------------------
+forms.py
+---------
+from django import forms 
+  
+// creating a django form 
+class GeeksForm(forms.Form): 
+    title = forms.CharField() 
+    description = forms.CharField() 
+    views = forms.IntegerField() 
+    available = forms.BooleanField() 
+
+views.py
+----------
+from django.shortcuts import render 
+from .forms import GeeksForm 
+  
+# creating a home view 
+def home_view(request): 
+    context = {} 
+    form = GeeksForm(request.POST or None) 
+    context['form'] = form 
+    return render(request, "home.html", context) 
+
+home.html
+---------
+<form method="POST"> 
+    {% csrf_token %} 
+    {{ form.as_p }} 
+    <input type="submit" value="Submit"> 
+</form> 
+
+
+Custom Django form field widgets
+---------------------------------------------
+forms.py
+---------
+from django import forms 
+  
+class GeeksForm(forms.Form): 
+    title = forms.CharField(widget = forms.Textarea) 
+    description = forms.CharField(widget = forms.CheckboxInput) 
+    views = forms.IntegerField(widget = forms.TextInput) 
+    available = forms.BooleanField(widget = forms.Textarea) 
+
+Using Widgets to Customize DateField
+----------------------------------------------
+forms.py
+---------
+from django import forms 
+  
+class GeeksForm(forms.Form): 
+    title = forms.CharField() 
+    description = forms.CharField() 
+    views = forms.IntegerField() 
+    date = forms.DateField(widget = forms.SelectDateWidget) 
+
+--------------------------------------------------------------------------------------
+Python | Form validation using django
+--------------------------------------------------------------------------------------
+models.py
+----------
+from django.db import models
+ 
+# model named Post
+class Post(models.Model):
+    Male = 'M'
+    FeMale = 'F'
+    GENDER_CHOICES = (
+    (Male, 'Male'),
+    (FeMale, 'Female'),
+    )
+ 
+    # define a username field with bound  max length it can have
+    username = models.CharField( max_length = 20, blank = False,
+                                 null = False)
+     
+    # This is used to write a post
+    text = models.TextField(blank = False, null = False)
+     
+    # Values for gender are restricted by giving choices
+    gender = models.CharField(max_length = 6, choices = GENDER_CHOICES, 
+                              default = Male)
+     
+    time = models.DateTimeField(auto_now_add = True)
+
+forms.py
+----------
+from django.forms import ModelForm
+from django import forms
+from formValidationApp.models import *
+ 
+# define the class of a form
+class PostForm(ModelForm):
+    class Meta:
+        # write the name of models for which the form is made
+        model = Post        
+ 
+        # Custom fields
+        fields =["username", "gender", "text"]
+ 
+    # this function will be used for the validation
+    def clean(self):
+ 
+        # data from the form is fetched using super function
+        super(PostForm, self).clean()
+         
+        # extract the username and text field from the data
+        username = self.cleaned_data.get('username')
+        text = self.cleaned_data.get('text')
+ 
+        # conditions to be met for the username length
+        if len(username) < 5:
+            self._errors['username'] = self.error_class([
+                'Minimum 5 characters required'])
+        if len(text) <10:
+            self._errors['text'] = self.error_class([
+                'Post Should Contain a minimum of 10 characters'])
+ 
+        # return any errors if found
+        return self.cleaned_data
+
+urls.py
+---------
+from django.contrib import admin
+from django.urls import path, include
+from django.conf.urls import url
+from django.shortcuts import HttpResponse
+from . import views
+ 
+ 
+urlpatterns = [
+    path('', views.home, name ='index'),
+]
+
+views.py
+-----------
+from .models import Post
+from .forms import PostForm
+from .import views
+from django.shortcuts import HttpResponse, render, redirect
+ 
+ 
+def home(request):
+ 
+    # check if the request is post 
+    if request.method =='POST':  
+ 
+        # Pass the form data to the form class
+        details = PostForm(request.POST)
+ 
+        # In the 'form' class the clean function 
+        # is defined, if all the data is correct 
+        # as per the clean function, it returns true
+        if details.is_valid():  
+ 
+            # Temporarily make an object to be add some
+            # logic into the data if there is such a need
+            # before writing to the database   
+            post = details.save(commit = False)
+ 
+            # Finally write the changes into database
+            post.save()  
+ 
+            # redirect it to some another page indicating data
+            # was inserted successfully
+            return HttpResponse("data submitted successfully")
+             
+        else:
+         
+            # Redirect back to the same page if the data
+            # was invalid
+            return render(request, "home.html", {'form':details})  
+    else:
+ 
+        # If the request is a GET request then,
+        # create an empty form object and 
+        # render it into the page
+        form = PostForm(None)   
+        return render(request, 'home.html', {'form':form})
+
+home.html
+----------
+{% load bootstrap3 %}
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head >
+
+	<title>Basic Form</title>
+	
+	<meta charset="utf-8" />
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+</script>
+</head>
+
+<body style="padding-top: 60px;background-color: #f5f7f8 !important;">
+	<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+		<h2>Form</h2>
+			<form action="" method="post"><input type='hidden'/>
+			{%csrf_token %}
+
+				{% bootstrap_form form %}
+<!-This is the form variable which we are passing from the function
+of home in views.py file. That's the beauty of Django we 
+don't need to write much codes in this it'll automatically pass 
+all the form details in here
+->
+			<div class="form-group">
+				<button type="submit" class="btn btn-default ">
+				Submit
+				</button>
+
+				</div>
+
+				</form>
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
